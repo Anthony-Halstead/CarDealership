@@ -1,13 +1,16 @@
 package com.carDealerProject.entity;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.JoinColumn;
 
 @Entity
 @Table(name="Car")
@@ -47,6 +50,10 @@ public class Car {
 
     @Column(name = "dateSold", nullable = true)
     private LocalDate dateSold;
+
+    @OneToMany
+    @JoinColumn (name = "car_Id")
+    private List<Photo> photos;
 
     public Car() {
     }
@@ -132,5 +139,12 @@ public class Car {
         this.dateSold = dateSold;
     }
 
+    public List<Photo> getPhotos() {
+        return photos;
+    }
+
+    public void setPhotos(List<Photo> photos) {
+        this.photos = photos;
+    }
     
 }
