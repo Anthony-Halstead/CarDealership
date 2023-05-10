@@ -1,12 +1,12 @@
 package com.carDealerProject.repo;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
-import com.carDealerProject.entity.Auction;
+import com.carDealerProject.entity.SoldCars;
 
 @Repository
-public interface AuctionRepo extends JpaRepository<Auction, Integer>{
+public interface SoldCarsRepo extends JpaRepository<SoldCars, Integer>{
     
 }
-
