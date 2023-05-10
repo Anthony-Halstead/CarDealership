@@ -45,6 +45,9 @@ public class Car {
     @Column(name = "isSold")
     private Boolean isSold;
 
+    @Column(name = "dateSold", nullable = true)
+    private LocalDate dateSold;
+
     public Car() {
     }
 
@@ -119,6 +122,14 @@ public class Car {
 
     public void setIsSold(Boolean isSold) {
         this.isSold = isSold;
+    }
+
+    public LocalDate getDateSold() {
+        return dateSold;
+    }
+
+    public void setDateSold(LocalDate dateSold) {
+        this.dateSold = dateSold;
     }
 
     
