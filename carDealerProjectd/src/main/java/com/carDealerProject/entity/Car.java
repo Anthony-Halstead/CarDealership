@@ -1,23 +1,24 @@
 package com.carDealerProject.entity;
 
 import java.time.LocalDate;
-
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+
 
 @Entity
 @Table(name="Car")
 public class Car {
     
-    // ID lets you know its an id
+ 
     @Id
-    // Column maps to the same name as the column name in the database, it is case sensitive
     @Column(name = "id")
-    // This will configure your id to be auto generated, now you don't need a setter for your id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -43,9 +44,40 @@ public class Car {
     private Double price;
 
     @Column(name = "isSold")
-    private Boolean isSold;
+    private Boolean isSold = false;
+    
 
-    public Car() {
+	@Column(name = "salePrice")
+    private Double salePrice;
+
+    @Column(name = "dateSold", nullable = true)
+    private LocalDate dateSold;
+    
+	@OneToMany	    
+	@JoinColumn(name="car_Id",referencedColumnName="id")
+	private List<Photo> carPhotos;
+	
+
+    public Double getSalePrice() {
+		return salePrice;
+	}
+
+	public void setSalePrice(Double salePrice) {
+		this.salePrice = salePrice;
+	}
+
+	public List<Photo> getCarPhotos() {
+		return carPhotos;
+	}
+	public void addCarPhoto(Photo photo) {
+		this.carPhotos.add(photo);
+	}
+
+	public void setCarPhotos(List<Photo> carPhotos) {
+		this.carPhotos = carPhotos;
+	}
+
+	public Car() {
     }
 
     //------Getters and Setters------//
@@ -120,6 +152,20 @@ public class Car {
     public void setIsSold(Boolean isSold) {
         this.isSold = isSold;
     }
+
+    public LocalDate getDateSold() {
+        return dateSold;
+    }
+
+    public void setDateSold(LocalDate dateSold) {
+        this.dateSold = dateSold;
+    }
+    @Override
+	public String toString() {
+	return "Car [id=" + id + ", make=" + make + ", model=" + model + ", year=" + year + ", miles=" + miles
+			+ ", dateAdded=" + dateAdded + ", description=" + description + ", price=" + price + ", isSold="
+			+ isSold + ", salePrice=" + salePrice + ", dateSold=" + dateSold + ", carPhotos=" + carPhotos + "]";
+	}
 
     
 }

@@ -28,16 +28,27 @@ public class User {
 
     @Column(name = "userName", unique = true, nullable = false)
     private String userName;
+    
     @Column(name = "password", nullable = false)
     private String password;
-   
     
-    @OneToMany 
-    @JoinColumn(name = "car_ID")
+    @Column(name = "isAdmin", nullable = false)
+    private Boolean isAdmin;
+  
+	@OneToMany 
+	@JoinColumn(name="user_Id",referencedColumnName="id")
     private List<Car> userCars;
 
     //----------------------------///
     public User() {}
+    
+    public Boolean getIsAdmin() {
+ 		return isAdmin;
+ 	}
+
+ 	public void setIsAdmin(Boolean isAdmin) {
+ 		this.isAdmin = isAdmin;
+ 	}
 
     public List<Car> getUserCars() {
         return userCars;
