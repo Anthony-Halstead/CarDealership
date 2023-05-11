@@ -55,7 +55,7 @@ public class Car {
     @OneToMany
     @JoinColumn (name = "car_Id")
     private List<Photo> photos;
-=======
+
     @Column(name = "salePrice", scale = 2)
     private Double salePrice;
 
@@ -151,7 +151,7 @@ public class Car {
 
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;
-=======
+    }
     public Double getSalePrice() {
         return salePrice;
     }
