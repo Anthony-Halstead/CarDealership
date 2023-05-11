@@ -1,15 +1,14 @@
 package com.carDealerProject.service;
 
 import com.carDealerProject.repo.PhotoRepo;
-import com.carDealerProject.entity.Car;
 import com.carDealerProject.entity.Photo;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Service
 public class PhotoService {
     @Autowired
     private PhotoRepo photoRepo;

@@ -18,16 +18,16 @@ public interface CarRepo extends JpaRepository<Car, Integer> {
     @Query(value="select * from car where model = ?1", nativeQuery = true)
     public List<Car> findByModel(String model);
      
-    @Query(value="select * from car where price BETWEEN ?1 AND ?2;", nativeQuery = true)
+    @Query(value="select * from car where price BETWEEN ?1 AND ?2", nativeQuery = true)
     public List<Car> findByPrice(double fromPrice, double toPrice);
     
-    @Query(value="select * from car where DATE(dateAdded) < DATE_SUB(CURDATE(), INTERVAL 119 DAY", nativeQuery = true)
-    public List<Car> findAuctionCars();
+    @Query(value="select * from car where DATE(date_added) < DATE(?1)", nativeQuery = true)
+    public List<Car> findAuctionCars(LocalDate date);
     
-    @Query(value="select * from car where isSold = 0", nativeQuery = true)
+    @Query(value="select * from car where is_sold = 0", nativeQuery = true)
     public List<Car> findCarsInInvetory();
     
-    @Query(value="select * from car where isSold = 1 and dateSold BETWEEN ?1 AND ?2",nativeQuery = true)
+    @Query(value="select * from car where is_sold = 1 AND date_sold BETWEEN DATE(?1) AND DATE(?2)",nativeQuery = true)
     public List<Car> findCarsSold(LocalDate dateFrom,LocalDate dateTo);
 	
 	

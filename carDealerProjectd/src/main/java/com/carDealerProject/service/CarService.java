@@ -80,8 +80,8 @@ public class CarService {
 		return cars;
 	}
 	
-	public List<Car> findAuctionCars() {
-		List<Car> cars = carRepo.findAuctionCars();
+	public List<Car> findAuctionCars(LocalDate date) {
+		List<Car> cars = carRepo.findAuctionCars(date);
 		return cars;
 
 	}

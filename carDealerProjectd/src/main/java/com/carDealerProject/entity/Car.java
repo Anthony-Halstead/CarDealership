@@ -34,7 +34,7 @@ public class Car {
     @Column(name = "miles")
     private Integer miles;
 
-    @Column (name = "dateAdded")
+    @Column (name = "date_added")
     private LocalDate dateAdded;
 
     @Column(name = "description")
@@ -43,14 +43,14 @@ public class Car {
     @Column(name = "price", scale = 2)
     private Double price;
 
-    @Column(name = "isSold")
+    @Column(name = "is_sold")
     private Boolean isSold = false;
     
 
-	@Column(name = "salePrice")
+	@Column(name = "sale_price")
     private Double salePrice;
 
-    @Column(name = "dateSold", nullable = true)
+    @Column(name = "date_sold", nullable = true)
     private LocalDate dateSold;
     
 	@OneToMany	    

@@ -76,13 +76,13 @@ public class CarController {
 		      value="/addPhoto/{id}",
 			  consumes = MediaType.APPLICATION_JSON_VALUE,
 		      produces = MediaType.APPLICATION_JSON_VALUE,
-		      method = RequestMethod.GET
+		      method = RequestMethod.POST
 		  )
-		  public ResponseEntity<Object> addPhoto (@RequestBody Photo photo,@PathVariable Integer carId) {
+		  public ResponseEntity<Object> addPhoto (@RequestBody Photo photo, @PathVariable Integer id) {
 
 		      try {
 		    	  photoService.save(photo);
-		          Car foundCar = carService.findById(carId);
+		          Car foundCar = carService.findById(id);
 		          foundCar.addCarPhoto(photo);
 		          carService.update(foundCar);
 		         
@@ -149,7 +149,8 @@ public class CarController {
 			  public ResponseEntity<Object> findAll() {
 
 			      try {
-			          List<Car> auctionCars = carService.findAuctionCars();
+			    	  LocalDate date = LocalDate.now().minusDays(119);
+			          List<Car> auctionCars = carService.findAuctionCars(date);
 			          return new ResponseEntity<Object>(auctionCars, HttpStatus.OK);
 			      } catch (Exception e) {
 			          System.out.println(e);
@@ -161,16 +162,39 @@ public class CarController {
 
 			  }
 		@RequestMapping(
-			      value="/findCarsSold/{dateFrom}/{dateTo}",
+			      value="/findCarsSold/{startDate}/{endDate}",
 				  consumes = MediaType.APPLICATION_JSON_VALUE,
 			      produces = MediaType.APPLICATION_JSON_VALUE,
 			      method = RequestMethod.GET
 			  )
-			  public ResponseEntity<Object> findCarsSold(LocalDate dateFrom,LocalDate dateTo) {
+			  public ResponseEntity<Object> findCarsSold(@PathVariable String startDate, @PathVariable String endDate) {
 					
 			      try {
+			    	  LocalDate dateFrom = LocalDate.parse(startDate);
+			    	  LocalDate dateTo = LocalDate.parse(endDate);
 			          List<Car> carsSold = carService.findCarsSold(dateFrom, dateTo);
 			          return new ResponseEntity<Object>(carsSold, HttpStatus.OK);
+			      } catch (Exception e) {
+			          System.out.println(e);
+			          return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			      } catch (Error e) {
+			          System.out.println(e);
+			          return new ResponseEntity<Object>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+			      }
+
+			  }
+		@RequestMapping(
+			      value="/findByPrice/{fromPrice}/{toPrice}",
+				  consumes = MediaType.APPLICATION_JSON_VALUE,
+			      produces = MediaType.APPLICATION_JSON_VALUE,
+			      method = RequestMethod.GET
+			  )
+			  public ResponseEntity<Object> findCarsByPrice(@PathVariable Double fromPrice, @PathVariable Double toPrice) {
+					
+			      try {
+
+			          List<Car> carsInRange = carService.findByPrice(fromPrice, toPrice);
+			          return new ResponseEntity<Object>(carsInRange, HttpStatus.OK);
 			      } catch (Exception e) {
 			          System.out.println(e);
 			          return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
