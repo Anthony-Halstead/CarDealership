@@ -15,11 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.carDealerProject.entity.Car;
-import com.carDealerProject.entity.Inventory;
-import com.carDealerProject.entity.SoldCars;
+
 import com.carDealerProject.entity.User;
-import com.carDealerProject.service.InventoryService;
-import com.carDealerProject.service.SoldCarsService;
+
 import com.carDealerProject.service.UserService;
 
 // Denotes that this will be a RESTFul
@@ -32,10 +30,8 @@ public class UserController {
     // You can autowire any service you need to get the data from
     @Autowired
     UserService userService;
-    @Autowired
-    InventoryService inventoryService;
-    @Autowired
-    SoldCarsService soldCarsService;
+
+    
 
     // Configures my endpoint, /signup in the end url, accepts JSON data, Produces JSON data, accessed with a post
     @RequestMapping(
@@ -194,29 +190,5 @@ public class UserController {
         }
 
     }
-
-    @RequestMapping(
-        value="/BuyCar/{userId}/Inventory/{inventoryID}/SoldCars/{soldCarsID}",
-        consumes = MediaType.APPLICATION_JSON_VALUE,
-        produces = MediaType.APPLICATION_JSON_VALUE,
-        method = RequestMethod.POST
-    )
-    public ResponseEntity<Object> buyCar(@PathVariable Integer userId, @PathVariable Integer inventoryID, @RequestBody Car car, @PathVariable Integer soldCarsID) {
-
-        try {
-            User user = userService.buyCar(userId, car);
-            Inventory inventory = inventoryService.removeCarFromInventory(inventoryID, car);
-            SoldCars soldCars = soldCarsService.addCarToSoldCars(soldCarsID, car);
-            return new ResponseEntity<Object>(user, HttpStatus.OK);
-        } catch (Exception e) {
-            System.out.println(e);
-            return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
-        } catch (Error e) {
-            System.out.println(e);
-            return new ResponseEntity<Object>(e, HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-    }
-
 
 }

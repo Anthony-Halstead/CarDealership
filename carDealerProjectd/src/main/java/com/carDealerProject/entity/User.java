@@ -28,23 +28,33 @@ public class User {
 
     @Column(name = "userName", unique = true, nullable = false)
     private String userName;
+    
     @Column(name = "password", nullable = false)
     private String password;
-   
     
-    @OneToMany 
-    @JoinColumn(name = "car_ID")
-    private List<Car> userCars;
-
-    @Column(name = "isAdmin")
+    @Column(name = "isAdmin", nullable = false)
     private Boolean isAdmin;
+  
+	@OneToMany 
+	@JoinColumn(name="user_Id",referencedColumnName="id")
+    private List<Car> userCars;
 
     //----------------------------///
     public User() {}
+    
+    public Boolean getIsAdmin() {
+ 		return isAdmin;
+ 	}
+
+ 	public void setIsAdmin(Boolean isAdmin) {
+ 		this.isAdmin = isAdmin;
+ 	}
 
     public List<Car> getUserCars() {
         return userCars;
     }
+
+
 
     public void setUserCars(List<Car> userCars) {
         this.userCars = userCars;
@@ -77,13 +87,5 @@ public class User {
     @Override
     public String toString() {
         return "User [id=" + id + ", userName=" + userName + ", password=" + password + "]";
-    }
-
-    public Boolean getIsAdmin() {
-        return isAdmin;
-    }
-
-    public void setIsAdmin(Boolean isAdmin) {
-        this.isAdmin = isAdmin;
     }
 }

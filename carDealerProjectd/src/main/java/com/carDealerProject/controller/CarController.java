@@ -1,5 +1,245 @@
 package com.carDealerProject.controller;
 
+import java.time.LocalDate;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.carDealerProject.entity.Car;
+import com.carDealerProject.entity.Photo;
+import com.carDealerProject.service.CarService;
+import com.carDealerProject.service.PhotoService;
+
+@RestController
+@RequestMapping(value="/car")
+@CrossOrigin("*")
+
 public class CarController {
     
+	@Autowired
+	CarService carService;
+	
+	@Autowired
+	PhotoService photoService;
+	
+	 @RequestMapping(
+		  		value = "/save",
+		  		consumes = MediaType.APPLICATION_JSON_VALUE,
+		  		produces = MediaType.APPLICATION_JSON_VALUE,
+		  		method = RequestMethod.POST
+		  )
+	 public ResponseEntity<Object> save(@RequestBody Car car) {
+
+	      try {
+	          Car savedCar = carService.save(car);
+	          return new ResponseEntity<Object>(savedCar, HttpStatus.CREATED);
+	      } catch (Exception e) {
+
+	          return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
+	      } catch (Error e) {
+
+	          return new ResponseEntity<Object>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+	      }
+
+	  }
+	 
+	  @RequestMapping(
+		      value="/findCarById/{id}",
+			  consumes = MediaType.APPLICATION_JSON_VALUE,
+		      produces = MediaType.APPLICATION_JSON_VALUE,
+		      method = RequestMethod.GET
+		  )
+		  public ResponseEntity<Object> findCarById(@PathVariable Integer id) {
+
+		      try {
+		          Car foundCar = carService.findById(id);
+		          return new ResponseEntity<Object>(foundCar, HttpStatus.OK);
+		      } catch (Exception e) {
+		          System.out.println(e);
+		          return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		      } catch (Error e) {
+		          System.out.println(e);
+		          return new ResponseEntity<Object>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+		      }
+
+		  }
+	  @RequestMapping(
+		      value="/addPhoto/{id}",
+			  consumes = MediaType.APPLICATION_JSON_VALUE,
+		      produces = MediaType.APPLICATION_JSON_VALUE,
+		      method = RequestMethod.POST
+		  )
+		  public ResponseEntity<Object> addPhoto (@RequestBody Photo photo, @PathVariable Integer id) {
+
+		      try {
+		    	  photoService.save(photo);
+		          Car foundCar = carService.findById(id);
+		          foundCar.addCarPhoto(photo);
+		          carService.update(foundCar);
+		         
+		          
+		          
+		          
+		          return new ResponseEntity<Object>(foundCar, HttpStatus.OK);
+		      } catch (Exception e) {
+		          System.out.println(e);
+		          return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		      } catch (Error e) {
+		          System.out.println(e);
+		          return new ResponseEntity<Object>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+		      }
+
+		  }
+	  
+	  @RequestMapping(
+		      value="/findCarByMake/{make}",
+		      consumes = MediaType.APPLICATION_JSON_VALUE,
+		      produces = MediaType.APPLICATION_JSON_VALUE,
+		      method = RequestMethod.GET
+		  )
+		  public ResponseEntity<Object> findCarByMake(@PathVariable String make) {
+
+		      try {
+		          List <Car> foundCar = carService.findByMake(make);
+		          return new ResponseEntity<Object>(foundCar, HttpStatus.OK);
+		      } catch (Exception e) {
+		          System.out.println(e);
+		          return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+		      } catch (Error e) {
+		          System.out.println(e);
+		          return new ResponseEntity<Object>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+		      }
+
+		  }
+	  
+		@RequestMapping(
+			      value="/findCarByModel/{model}",
+				  consumes = MediaType.APPLICATION_JSON_VALUE,
+			      produces = MediaType.APPLICATION_JSON_VALUE,
+			      method = RequestMethod.GET
+		  		)
+			  public ResponseEntity<Object> findModelByModel(@PathVariable String model) {
+
+			      try {
+			          List <Car> foundCar = carService.findByModel(model);
+			          return new ResponseEntity<Object>(foundCar, HttpStatus.OK);
+			      } catch (Exception e) {
+			          System.out.println(e);
+			          return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			      } catch (Error e) {
+			          System.out.println(e);
+			          return new ResponseEntity<Object>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+			      }
+
+			  }  
+		@RequestMapping(
+			      value="/findAuctionCars",
+			      produces = MediaType.APPLICATION_JSON_VALUE,
+			      method = RequestMethod.GET
+			  )
+			  public ResponseEntity<Object> findAll() {
+
+			      try {
+			    	  LocalDate date = LocalDate.now().minusDays(119);
+			          List<Car> auctionCars = carService.findAuctionCars(date);
+			          return new ResponseEntity<Object>(auctionCars, HttpStatus.OK);
+			      } catch (Exception e) {
+			          System.out.println(e);
+			          return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			      } catch (Error e) {
+			          System.out.println(e);
+			          return new ResponseEntity<Object>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+			      }
+
+			  }
+		@RequestMapping(
+			      value="/findCarsSold/{startDate}/{endDate}",
+				  consumes = MediaType.APPLICATION_JSON_VALUE,
+			      produces = MediaType.APPLICATION_JSON_VALUE,
+			      method = RequestMethod.GET
+			  )
+			  public ResponseEntity<Object> findCarsSold(@PathVariable String startDate, @PathVariable String endDate) {
+					
+			      try {
+			    	  LocalDate dateFrom = LocalDate.parse(startDate);
+			    	  LocalDate dateTo = LocalDate.parse(endDate);
+			          List<Car> carsSold = carService.findCarsSold(dateFrom, dateTo);
+			          return new ResponseEntity<Object>(carsSold, HttpStatus.OK);
+			      } catch (Exception e) {
+			          System.out.println(e);
+			          return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			      } catch (Error e) {
+			          System.out.println(e);
+			          return new ResponseEntity<Object>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+			      }
+
+			  }
+		@RequestMapping(
+			      value="/findCarsInInventory",
+			      produces = MediaType.APPLICATION_JSON_VALUE,
+			      method = RequestMethod.GET
+			  )
+			  public ResponseEntity<Object> findCarsInInventory() {
+
+			      try {
+			          List<Car> inventoryCars = carService.findCarsInInventory();
+			          return new ResponseEntity<Object>(inventoryCars, HttpStatus.OK);
+			      } catch (Exception e) {
+			          System.out.println(e);
+			          return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			      } catch (Error e) {
+			          System.out.println(e);
+			          return new ResponseEntity<Object>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+			      }
+
+			  }
+
+			  @RequestMapping(
+			      value="/updateCar",
+			      consumes = MediaType.APPLICATION_JSON_VALUE,
+			      produces = MediaType.APPLICATION_JSON_VALUE,
+			      method = RequestMethod.POST
+			  )
+			  public ResponseEntity<Object> updateCar(@RequestBody Car car) {
+
+			      try {
+			          Car updatedCar = carService.update(car);
+			          return new ResponseEntity<Object>(updatedCar, HttpStatus.OK);
+			      } catch (Exception e) {
+			          System.out.println(e);
+			          return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			      } catch (Error e) {
+			          System.out.println(e);
+			          return new ResponseEntity<Object>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+			      }
+
+			  }
+
+			  @RequestMapping(
+			      value="/deleteCar/{id}",
+			      method = RequestMethod.DELETE
+			  )
+			  public ResponseEntity<Object> deleteCar(@PathVariable Integer id) {
+
+			      try {
+			          // 
+			          carService.deleteById(id);
+			          return new ResponseEntity<Object>(HttpStatus.NO_CONTENT);
+			      } catch (Exception e) {
+			          return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			      } catch (Error e) {
+			          return new ResponseEntity<Object>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+			      }
+
+			  }
+
 }

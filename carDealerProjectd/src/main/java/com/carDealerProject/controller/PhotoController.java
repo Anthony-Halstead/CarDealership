@@ -20,7 +20,7 @@ import com.carDealerProject.service.PhotoService;
 
 // Denotes that this will be a RESTFul
 @RestController
-@RequestMapping(value="/inventory")
+@RequestMapping(value="/photo")
 @CrossOrigin("*")
 
 public class PhotoController {

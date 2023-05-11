@@ -2,25 +2,23 @@ package com.carDealerProject.entity;
 
 import java.time.LocalDate;
 import java.util.List;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.JoinColumn;
+
 
 @Entity
 @Table(name="Car")
 public class Car {
     
-    // ID lets you know its an id
+ 
     @Id
-    // Column maps to the same name as the column name in the database, it is case sensitive
     @Column(name = "id")
-    // This will configure your id to be auto generated, now you don't need a setter for your id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
@@ -36,7 +34,7 @@ public class Car {
     @Column(name = "miles")
     private Integer miles;
 
-    @Column (name = "dateAdded")
+    @Column (name = "date_added")
     private LocalDate dateAdded;
 
     @Column(name = "description")
@@ -45,22 +43,41 @@ public class Car {
     @Column(name = "price", scale = 2)
     private Double price;
 
-    @Column(name = "isSold")
-    private Boolean isSold;
+    @Column(name = "is_sold")
+    private Boolean isSold = false;
+    
 
-    @Column(name = "dateSold", nullable = true)
-    private LocalDate dateSold;
-
-
-    @OneToMany
-    @JoinColumn (name = "car_Id")
-    private List<Photo> photos;
-
-    @Column(name = "salePrice", scale = 2)
+	@Column(name = "sale_price")
     private Double salePrice;
 
+    @Column(name = "date_sold", nullable = true)
+    private LocalDate dateSold;
+    
+	@OneToMany	    
+	@JoinColumn(name="car_Id",referencedColumnName="id")
+	private List<Photo> carPhotos;
+	
 
-    public Car() {
+    public Double getSalePrice() {
+		return salePrice;
+	}
+
+	public void setSalePrice(Double salePrice) {
+		this.salePrice = salePrice;
+	}
+
+	public List<Photo> getCarPhotos() {
+		return carPhotos;
+	}
+	public void addCarPhoto(Photo photo) {
+		this.carPhotos.add(photo);
+	}
+
+	public void setCarPhotos(List<Photo> carPhotos) {
+		this.carPhotos = carPhotos;
+	}
+
+	public Car() {
     }
 
     //------Getters and Setters------//
@@ -143,22 +160,12 @@ public class Car {
     public void setDateSold(LocalDate dateSold) {
         this.dateSold = dateSold;
     }
+    @Override
+	public String toString() {
+	return "Car [id=" + id + ", make=" + make + ", model=" + model + ", year=" + year + ", miles=" + miles
+			+ ", dateAdded=" + dateAdded + ", description=" + description + ", price=" + price + ", isSold="
+			+ isSold + ", salePrice=" + salePrice + ", dateSold=" + dateSold + ", carPhotos=" + carPhotos + "]";
+	}
 
-
-    public List<Photo> getPhotos() {
-        return photos;
-    }
-
-    public void setPhotos(List<Photo> photos) {
-        this.photos = photos;
-    }
-    public Double getSalePrice() {
-        return salePrice;
-    }
-
-    public void setSalePrice(Double salePrice) {
-        this.salePrice = salePrice;
-
-    }
     
 }
