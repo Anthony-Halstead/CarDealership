@@ -36,14 +36,15 @@ public class User {
     @JoinColumn(name = "car_ID")
     private List<Car> userCars;
 
+    @Column(name = "isAdmin")
+    private Boolean isAdmin;
+
     //----------------------------///
     public User() {}
 
     public List<Car> getUserCars() {
         return userCars;
     }
-
-
 
     public void setUserCars(List<Car> userCars) {
         this.userCars = userCars;
@@ -76,5 +77,13 @@ public class User {
     @Override
     public String toString() {
         return "User [id=" + id + ", userName=" + userName + ", password=" + password + "]";
+    }
+
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 }

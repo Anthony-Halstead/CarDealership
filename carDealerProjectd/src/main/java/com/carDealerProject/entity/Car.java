@@ -51,9 +51,14 @@ public class Car {
     @Column(name = "dateSold", nullable = true)
     private LocalDate dateSold;
 
+
     @OneToMany
     @JoinColumn (name = "car_Id")
     private List<Photo> photos;
+=======
+    @Column(name = "salePrice", scale = 2)
+    private Double salePrice;
+
 
     public Car() {
     }
@@ -139,12 +144,21 @@ public class Car {
         this.dateSold = dateSold;
     }
 
+
     public List<Photo> getPhotos() {
         return photos;
     }
 
     public void setPhotos(List<Photo> photos) {
         this.photos = photos;
+=======
+    public Double getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(Double salePrice) {
+        this.salePrice = salePrice;
+
     }
     
 }
