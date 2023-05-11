@@ -18,10 +18,10 @@ function SignUpSignIn(props) {
     props.setUser(tempUser)
   }
 
-  const submitHandler = () => {
+  const signUpSubmitHandler = () => {
     axios.post("http://localhost:8080/user/signUp", props.user)
       .then((response) => {
-        localStorage.setItem("emailCookie", response.data.email)
+        localStorage.setItem("usernameCookie", response.data.username)
         props.setUser(response.data)
         navigator("/")
       })
@@ -30,6 +30,21 @@ function SignUpSignIn(props) {
       })
 
     }
+
+    const signInSubmitHandler = () => {
+        axios.post("http://localhost:8080/user/signIn", props.user)
+          .then((response) => {
+            localStorage.setItem("usernameCookie", response.data.username)
+            props.setUser(response.data)
+            navigator("/")
+          })
+          .catch((e) => {
+            console.log(e)
+          })
+    
+        }
+
+
     return (
         <div className='signup-signin-content'>
             <div className='sign-up-box'>
@@ -38,30 +53,30 @@ function SignUpSignIn(props) {
                 </div>
                 <h1>Sign-Up</h1>
                 <div className='flex-row justify-content-left'>
-                    EMAIL
-                    <input className='input-container'  value={props.user.email} name='email' type='email' onChange={changeHandler} required></input>
+                    USERNAME
+                    <input className='input-container'  value={props.user.email} name='username' type='username' onChange={changeHandler} required></input>
                 </div>
                 <div className='flex-row justify-content-left'>
                     PASSWORD
                     <input className='input-container' value={props.user.password} name='password' type='password' onChange={changeHandler} required></input>
                 </div>
                 <div className='flex-row justify-content-center'>
-                    <button onClick={submitHandler}>SUBMIT</button>
+                    <button onClick={signUpSubmitHandler}>SUBMIT</button>
                 </div>
             </div>
             <div className='sign-up-box'>
                 <div>Already A User?</div>
                 <h1>Sign-In</h1>
                 <div className='flex-row justify-content-left'>
-                    EMAIL
-                    <input className='input-container'  value={props.user.email} name='email' type='email' onChange={changeHandler} required></input>
+                    USERNAME
+                    <input className='input-container'  value={props.user.email} name='username' type='username' onChange={changeHandler} required></input>
                 </div>
                 <div className='flex-row justify-content-left'>
                     PASSWORD
                     <input className='input-container' value={props.user.password} name='password' type='password' onChange={changeHandler} required></input>
                 </div>
                 <div className='flex-row justify-content-center'>
-                    <button onClick={submitHandler}>SUBMIT</button>
+                    <button onClick={signInSubmitHandler}>SUBMIT</button>
                 </div>
             </div>
 

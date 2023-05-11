@@ -11,7 +11,7 @@ function App() {
   const [user, setUser] = useState({ username: '', password: '' });
 
   useEffect(() => {
-    const username = localStorage.getItem("emailCookie");
+    const username = localStorage.getItem("usernameCookie");
     if (username) {
       setUser({ ...user, username });
     }
