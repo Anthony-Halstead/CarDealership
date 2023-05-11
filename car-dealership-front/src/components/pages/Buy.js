@@ -1,6 +1,6 @@
 import React from 'react'
 import '../../css/pages/buy.css'
-function Buy() {
+function Buy(props) {
   return (
     <div className='buy-content'>Buy</div>
   )
