@@ -8,12 +8,12 @@ import PageWrapper from './components/reusables/PageWrapper';
 import { Route, Routes } from 'react-router-dom';
 
 function App() {
-  const [user, setUser] = useState({ email: '', password: '' });
+  const [user, setUser] = useState({ username: '', password: '' });
 
   useEffect(() => {
-    const email = localStorage.getItem("emailCookie");
-    if (email) {
-      setUser({ ...user, email });
+    const username = localStorage.getItem("emailCookie");
+    if (username) {
+      setUser({ ...user, username });
     }
   }, []);
 
