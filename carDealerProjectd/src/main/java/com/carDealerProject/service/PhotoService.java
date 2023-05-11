@@ -56,4 +56,8 @@ public class PhotoService {
     public void deleteById(Integer id) {
 	    photoRepo.deleteById(id);
 	}
+
+    public List<Photo> findByCar(Integer carID){
+        return photoRepo.findByCarID(carID);
+    }
 }
