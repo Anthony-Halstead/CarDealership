@@ -48,6 +48,9 @@ public class Car {
     @Column(name = "dateSold", nullable = true)
     private LocalDate dateSold;
 
+    @Column(name = "salePrice", scale = 2)
+    private Double salePrice;
+
     public Car() {
     }
 
@@ -132,5 +135,12 @@ public class Car {
         this.dateSold = dateSold;
     }
 
+    public Double getSalePrice() {
+        return salePrice;
+    }
+
+    public void setSalePrice(Double salePrice) {
+        this.salePrice = salePrice;
+    }
     
 }

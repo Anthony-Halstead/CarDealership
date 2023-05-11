@@ -4,6 +4,7 @@ import com.carDealerProject.repo.UserRepo;
 import com.carDealerProject.entity.Car;
 import com.carDealerProject.entity.User;
 
+import java.time.LocalDate;
 import java.util.List;
 
 
@@ -82,7 +83,9 @@ public class UserService {
 	}
 
     public User buyCar(Integer userId, Car car){
+        
         User user = userRepo.findById(userId).get();
+        
         user.getUserCars().add(car);
         return userRepo.save(user);
     }
