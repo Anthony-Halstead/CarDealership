@@ -9,12 +9,12 @@ import PageWrapper from './components/reusables/PageWrapper';
 import { Route, Routes } from 'react-router-dom';
 
 function App() {
-  const [user, setUser] = useState({ username: '', password: '', isAdmin: false});
+  const [user, setUser] = useState({ userName: "", password: "", isAdmin: false});
 
   useEffect(() => {
-    const username = localStorage.getItem("usernameCookie");
-    if (username) {
-      setUser({ ...user, username });
+    const userName = localStorage.getItem("userNameCookie");
+    if (userName) {
+      setUser({ ...user, userName });
     }
   }, []);
 
@@ -22,10 +22,9 @@ function App() {
     <PageWrapper
     user = {user}
     setUser = {setUser}
-    
     >
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home user={user} setUser={setUser}/>} />
         <Route path="/Buy" element={<Buy user={user} setUser={setUser}/>} />
         <Route path="/SignIn" element={<SignIn user={user} setUser={setUser} />} />
         <Route path="/SignUp" element={<SignUp user={user} setUser={setUser} />} />

@@ -1,6 +1,6 @@
 import React from 'react'
 import '../../css/pages/home.css'
-function Home() {
+function Home(props) {
   return (
     <div className='home-content'>Home</div>
   )

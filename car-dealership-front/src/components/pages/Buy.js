@@ -22,7 +22,7 @@ function Buy(props) {
   }, [])
 
   const goToCheckout = (car) => {
-    navigate("/checkout",{ state: {car, user: props.user} });
+    navigate("/checkout",{ state: {car: car, user: props.user} });
   }
 
   const handleCarClick = (car) => {
@@ -78,7 +78,7 @@ function Buy(props) {
             </div>
           </div>
           <div>
-            <button onClick={goToCheckout(selectedCar)}>Checkout</button>
+           <button onClick={() => goToCheckout(selectedCar)}>Checkout</button>
           </div>
         </div>
       )}

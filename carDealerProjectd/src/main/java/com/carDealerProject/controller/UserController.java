@@ -52,9 +52,7 @@ public class UserController {
 
             
             return new ResponseEntity<Object>(savedUser, HttpStatus.CREATED);
-        } catch(DataIntegrityViolationException e) {
-            System.out.println("Dupe userName");
-            return new ResponseEntity<Object>("Dupe userName", HttpStatus.BAD_REQUEST);
+        
         } catch (Exception e) {
             System.out.println(e);
             return new ResponseEntity<Object>(e, HttpStatus.BAD_REQUEST);
