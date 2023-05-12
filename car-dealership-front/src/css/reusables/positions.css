@@ -20,3 +20,14 @@
 .flex-column{
     flex-direction: column;
 }
+
+.body{
+    height: 90%;
+    width: 100%;
+    color: #b00000;
+}
+
+.container{
+    height: 100vh;
+    width: 100vw;
+  }

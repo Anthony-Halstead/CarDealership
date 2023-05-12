@@ -81,7 +81,7 @@ public class UserService {
         userRepo.deleteById(id);
 	}
 
-    public User buyCar(Integer userId, Car car){
+    public User addCarToUser(Integer userId, Car car){
         User user = userRepo.findById(userId).get();
         user.getUserCars().add(car);
         return userRepo.save(user);
