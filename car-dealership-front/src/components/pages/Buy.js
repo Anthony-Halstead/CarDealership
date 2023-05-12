@@ -7,7 +7,7 @@ function Buy(props) {
 
   const [cars, setCars] = useState([])
   const [selectedCar, setSelectedCar] = useState(null)
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
 
