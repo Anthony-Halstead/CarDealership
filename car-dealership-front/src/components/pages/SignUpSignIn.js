@@ -10,14 +10,18 @@ function SignUpSignIn(props) {
     const navigator = useNavigate()
 
     const changeHandler = (event) => {
-    const name = event.target.name;
-    const value = event.target.value;
-    const tempUser = { ...props.user };
-    tempUser[name] = value;
-
-    props.setUser(tempUser)
-  }
-
+        const name = event.target.name;
+        let value;
+        if (event.target.type === "checkbox") {
+            value = event.target.checked;
+        } else {
+            value = event.target.value;
+        }
+        const tempUser = { ...props.user };
+        tempUser[name] = value;
+        props.setUser(tempUser);
+    };
+    
   const signUpSubmitHandler = () => {
     axios.post("http://localhost:8080/user/signUp", props.user)
       .then((response) => {
@@ -44,7 +48,6 @@ function SignUpSignIn(props) {
     
         }
 
-
     return (
         <div className='signup-signin-content'>
             <div className='sign-up-box'>
@@ -59,6 +62,10 @@ function SignUpSignIn(props) {
                 <div className='flex-row justify-content-left'>
                     PASSWORD
                     <input className='input-container' value={props.user.password} name='password' type='password' onChange={changeHandler} required></input>
+                </div>
+                <div className='flex-row justify-content-center'>
+                    <div>Check box if you are an Admin</div>
+                    <input type="checkbox" name="isAdmin" checked={props.user.isAdmin} onChange={changeHandler}/>
                 </div>
                 <div className='flex-row justify-content-center'>
                     <button onClick={signUpSubmitHandler}>SUBMIT</button>

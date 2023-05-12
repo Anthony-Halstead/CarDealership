@@ -1,7 +1,7 @@
 import React from 'react';
 import '../../css/pages/header.css'
 import '../../css/reusables/positions.css'
-function Header() {
+function Header(props) {
     return (
 
         <div className='header-container'>

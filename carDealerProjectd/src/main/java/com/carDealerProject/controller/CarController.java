@@ -184,6 +184,27 @@ public class CarController {
 
 			  }
 		@RequestMapping(
+			      value="/findByPrice/{fromPrice}/{toPrice}",
+				  consumes = MediaType.APPLICATION_JSON_VALUE,
+			      produces = MediaType.APPLICATION_JSON_VALUE,
+			      method = RequestMethod.GET
+			  )
+			  public ResponseEntity<Object> findCarsByPrice(@PathVariable Double fromPrice, @PathVariable Double toPrice) {
+					
+			      try {
+
+			          List<Car> carsInRange = carService.findByPrice(fromPrice, toPrice);
+			          return new ResponseEntity<Object>(carsInRange, HttpStatus.OK);
+			      } catch (Exception e) {
+			          System.out.println(e);
+			          return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			      } catch (Error e) {
+			          System.out.println(e);
+			          return new ResponseEntity<Object>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+			      }
+
+			  }
+		@RequestMapping(
 			      value="/findCarsInInventory",
 			      produces = MediaType.APPLICATION_JSON_VALUE,
 			      method = RequestMethod.GET
