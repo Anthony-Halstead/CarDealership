@@ -57,11 +57,11 @@ function SignUpSignIn(props) {
                 <h1>Sign-Up</h1>
                 <div className='flex-row justify-content-left'>
                     USERNAME
-                    <input className='input-container'  value={props.user.email} name='username' type='username' onChange={changeHandler} required></input>
+                    <input className='input-container'  value={props.user.email} name='username' type='username' onChange={changeHandler} ></input>
                 </div>
                 <div className='flex-row justify-content-left'>
                     PASSWORD
-                    <input className='input-container' value={props.user.password} name='password' type='password' onChange={changeHandler} required></input>
+                    <input className='input-container' value={props.user.password} name='password' type='password' onChange={changeHandler} ></input>
                 </div>
                 <div className='flex-row justify-content-center'>
                     <div>Check box if you are an Admin</div>
@@ -76,11 +76,11 @@ function SignUpSignIn(props) {
                 <h1>Sign-In</h1>
                 <div className='flex-row justify-content-left'>
                     USERNAME
-                    <input className='input-container'  value={props.user.email} name='username' type='username' onChange={changeHandler} required></input>
+                    <input className='input-container'  value={props.user.email} name='username' type='username' onChange={changeHandler} ></input>
                 </div>
                 <div className='flex-row justify-content-left'>
                     PASSWORD
-                    <input className='input-container' value={props.user.password} name='password' type='password' onChange={changeHandler} required></input>
+                    <input className='input-container' value={props.user.password} name='password' type='password' onChange={changeHandler} ></input>
                 </div>
                 <div className='flex-row justify-content-center'>
                     <button onClick={signInSubmitHandler}>SUBMIT</button>
