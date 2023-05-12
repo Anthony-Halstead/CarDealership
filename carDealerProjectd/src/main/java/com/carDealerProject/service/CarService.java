@@ -101,7 +101,12 @@ public class CarService {
 	    carRepo.deleteById(id);
 	}
 
+	public Car setCarSold(Integer carId) {
 
+		Car car = findById(carId);
+        car.setIsSold(true);
+		return carRepo.save(car);
+	}
 	
     
 }
