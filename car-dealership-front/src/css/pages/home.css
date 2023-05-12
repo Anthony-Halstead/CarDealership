@@ -20,6 +20,11 @@
     border:solid black ;
     background-color: whitesmoke;
     margin: auto;
+<<<<<<< HEAD
 =======
 >>>>>>> 0307632b69b2571d5e0561139c94acffd5a650db
+=======
+    height: 25%;
+    width: 100vw;
+>>>>>>> f143f25e46f6a72ea8ff1fca67d39f92d0eabd27
 }
