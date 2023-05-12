@@ -1,4 +1,4 @@
-import React from 'react'
+
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../css/pages/buy.css'
@@ -7,6 +7,7 @@ function Buy(props) {
 
   const [cars, setCars] = useState([])
   const [selectedCar, setSelectedCar] = useState(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const navigate = useNavigate();
 
 
@@ -81,7 +82,6 @@ function Buy(props) {
           </div>
         </div>
       )}
-
     </div>
   )
 }

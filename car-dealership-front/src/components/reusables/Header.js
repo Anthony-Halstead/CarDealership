@@ -19,8 +19,13 @@ function Header(props) {
                 </a>
             </div>
             <div className='third-width'>
-                <a href="/SignUpSignIn">
-                    <div className='header-link'>SIGN-UP/SIGN-IN</div>
+                <a href="/SignIn">
+                    <div className='header-link'>SIGN-IN</div>
+                </a>
+            </div>
+            <div className='third-width'>
+                <a href="/SignUp">
+                    <div className='header-link'>SIGN-UP</div>
                 </a>
             </div>
             <div className='third-width'>
