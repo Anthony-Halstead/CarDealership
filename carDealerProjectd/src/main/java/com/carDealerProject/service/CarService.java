@@ -80,6 +80,12 @@ public class CarService {
 		return cars;
 	}
 	
+	public List<Car> findRegCars(LocalDate date) {
+		List<Car> cars = carRepo.findRegCars(date);
+		return cars;
+
+	}
+	
 	public List<Car> findAuctionCars(LocalDate date) {
 		List<Car> cars = carRepo.findAuctionCars(date);
 		return cars;
