@@ -3,6 +3,7 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+<<<<<<< HEAD
 }
 
 .background {
@@ -19,4 +20,6 @@
     border:solid black ;
     background-color: whitesmoke;
     margin: auto;
+=======
+>>>>>>> 0307632b69b2571d5e0561139c94acffd5a650db
 }

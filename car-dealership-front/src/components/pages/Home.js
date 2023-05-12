@@ -1,5 +1,6 @@
 import React from 'react'
 import '../../css/pages/home.css'
+<<<<<<< HEAD
 import '../../css/reusables/positions.css'
 function Home() {
   return (
@@ -10,6 +11,11 @@ function Home() {
     </div>
     </div>
 
+=======
+function Home() {
+  return (
+    <div className='home-content'>Home</div>
+>>>>>>> 0307632b69b2571d5e0561139c94acffd5a650db
   )
 }
 

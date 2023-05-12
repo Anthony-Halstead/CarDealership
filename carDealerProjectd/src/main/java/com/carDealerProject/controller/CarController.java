@@ -146,12 +146,32 @@ public class CarController {
 			      produces = MediaType.APPLICATION_JSON_VALUE,
 			      method = RequestMethod.GET
 			  )
-			  public ResponseEntity<Object> findAll() {
+			  public ResponseEntity<Object> findAuctionCars() {
 
 			      try {
 			    	  LocalDate date = LocalDate.now().minusDays(119);
 			          List<Car> auctionCars = carService.findAuctionCars(date);
 			          return new ResponseEntity<Object>(auctionCars, HttpStatus.OK);
+			      } catch (Exception e) {
+			          System.out.println(e);
+			          return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
+			      } catch (Error e) {
+			          System.out.println(e);
+			          return new ResponseEntity<Object>(e, HttpStatus.INTERNAL_SERVER_ERROR);
+			      }
+
+			  }
+		@RequestMapping(
+			      value="/findRegCars",
+			      produces = MediaType.APPLICATION_JSON_VALUE,
+			      method = RequestMethod.GET
+			  )
+			  public ResponseEntity<Object> findRegCars() {
+
+			      try {
+			    	  LocalDate date = LocalDate.now().minusDays(120);
+			          List<Car> regCars = carService.findRegCars(date);
+			          return new ResponseEntity<Object>(regCars, HttpStatus.OK);
 			      } catch (Exception e) {
 			          System.out.println(e);
 			          return new ResponseEntity<Object>(e.getMessage(), HttpStatus.BAD_REQUEST);
