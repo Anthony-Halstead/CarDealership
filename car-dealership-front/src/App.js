@@ -8,7 +8,7 @@ import PageWrapper from './components/reusables/PageWrapper';
 import { Route, Routes } from 'react-router-dom';
 
 function App() {
-  const [user, setUser] = useState({ username: '', password: '', isAdmin });
+  const [user, setUser] = useState({ username: '', password: '', isAdmin: '' });
 
   useEffect(() => {
     const username = localStorage.getItem("usernameCookie");
