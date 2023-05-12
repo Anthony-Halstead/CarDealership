@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-import React from 'react'
-import '../../css/pages/admin.css'
-
-function Admin() {
-  return (
-    <div className='admin-content'>Admin</div>
-  )
-}
-
-=======
 import React, { useState } from 'react'
 import '../../css/pages/signupsignin.css'
 import '../../css/reusables/positions.css'
@@ -72,5 +61,4 @@ function Admin()  {
 
 
 
->>>>>>> 0307632b69b2571d5e0561139c94acffd5a650db
 export default Admin

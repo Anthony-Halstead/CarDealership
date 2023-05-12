@@ -25,11 +25,7 @@ function SignUp(props) {
   const signUpSubmitHandler = () => {
     axios.post("http://localhost:8080/user/signUp", props.user)
       .then((response) => {
-<<<<<<< HEAD
         localStorage.setItem("userNameCookie", response.data.userName)
-=======
-        localStorage.setItem("usernameCookie", response.data.username)
->>>>>>> 0307632b69b2571d5e0561139c94acffd5a650db
         props.setUser(response.data)
         navigator("/")
       })
@@ -47,11 +43,7 @@ function SignUp(props) {
                 <h1>Sign-Up</h1>
                 <div className='flex-row justify-content-left'>
                     USERNAME
-<<<<<<< HEAD
                     <input className='input-container'  value={props.user.userName} name='userName' type='userName' onChange={signUpChangeHandler} ></input>
-=======
-                    <input className='input-container'  value={props.user.username} name='username' type='username' onChange={signUpChangeHandler} ></input>
->>>>>>> 0307632b69b2571d5e0561139c94acffd5a650db
                 </div>
                 <div className='flex-row justify-content-left'>
                     PASSWORD

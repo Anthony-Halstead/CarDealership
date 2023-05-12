@@ -1,7 +1,3 @@
-<<<<<<< HEAD
-
-=======
->>>>>>> 0307632b69b2571d5e0561139c94acffd5a650db
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../../css/pages/buy.css'
@@ -25,11 +21,7 @@ function Buy(props) {
   }, [])
 
   const goToCheckout = (car) => {
-<<<<<<< HEAD
-    navigate("/checkout",{ state: {car: car, user: props.user} });
-=======
     navigate("/checkout",{ state: {car, user: props.user} });
->>>>>>> 0307632b69b2571d5e0561139c94acffd5a650db
   }
 
   const handleCarClick = (car) => {
@@ -85,11 +77,7 @@ function Buy(props) {
             </div>
           </div>
           <div>
-<<<<<<< HEAD
            <button onClick={() => goToCheckout(selectedCar)}>Checkout</button>
-=======
-            <button onClick={goToCheckout(selectedCar)}>Checkout</button>
->>>>>>> 0307632b69b2571d5e0561139c94acffd5a650db
           </div>
         </div>
       )}
@@ -97,8 +85,4 @@ function Buy(props) {
   )
 }
 
-<<<<<<< HEAD
 export default Buy
-=======
-export default Buy
->>>>>>> 0307632b69b2571d5e0561139c94acffd5a650db
