@@ -25,7 +25,7 @@ function SignUp(props) {
   const signUpSubmitHandler = () => {
     axios.post("http://localhost:8080/user/signUp", props.user)
       .then((response) => {
-        localStorage.setItem("userNameCookie", response.data.userName)
+        localStorage.setItem("userId", response.data.id)
         props.setUser(response.data)
         navigator("/")
       })

@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -121,13 +122,8 @@ public class CarController {
 
 		  }
 	  
-		@RequestMapping(
-			      value="/findCarByModel/{model}",
-				  consumes = MediaType.APPLICATION_JSON_VALUE,
-			      produces = MediaType.APPLICATION_JSON_VALUE,
-			      method = RequestMethod.GET
-		  		)
-			  public ResponseEntity<Object> findModelByModel(@PathVariable String model) {
+		  @GetMapping(value="/findCarByModel/{model}", produces = MediaType.APPLICATION_JSON_VALUE)
+			  public ResponseEntity<Object> findCarByModel(@PathVariable String model) {
 
 			      try {
 			          List <Car> foundCar = carService.findByModel(model);

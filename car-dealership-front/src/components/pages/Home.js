@@ -1,7 +1,8 @@
 import React from 'react'
 import '../../css/pages/home.css'
 import '../../css/reusables/positions.css'
-function Home() {
+function Home(props) {
+  console.log("USER ID", props.user.id);
   return (
     
     <div className = 'flex-column justify-content-center container background'>

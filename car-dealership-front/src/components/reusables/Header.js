@@ -1,11 +1,7 @@
 import React from 'react';
 import '../../css/pages/header.css'
 import '../../css/reusables/positions.css'
-<<<<<<< HEAD
 function Header(props) {
-=======
-function Header() {
->>>>>>> 0307632b69b2571d5e0561139c94acffd5a650db
     return (
 
         <div className='header-container'>
@@ -23,7 +19,6 @@ function Header() {
                 </a>
             </div>
             <div className='third-width'>
-<<<<<<< HEAD
                 <a href="/SignIn">
                     <div className='header-link'>SIGN-IN</div>
                 </a>
@@ -31,15 +26,6 @@ function Header() {
             <div className='third-width'>
                 <a href="/SignUp">
                     <div className='header-link'>SIGN-UP</div>
-=======
-                <a href="/SignUp">
-                    <div className='header-link'>SIGN-UP</div>
-                </a>
-            </div>
-            <div className='third-width'>
-                <a href="/SignIn">
-                    <div className='header-link'>SIGN-IN</div>
->>>>>>> 0307632b69b2571d5e0561139c94acffd5a650db
                 </a>
             </div>
             <div className='third-width'>

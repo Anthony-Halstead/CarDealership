@@ -1,11 +1,11 @@
 import React from 'react';
 import Header from './Header';
 
-function PageWrapper({ children }) {
+function PageWrapper(props) {
   return (
     <div >
-      <Header />
-      <div>{children}</div>
+      <Header user={props.user} setUser={props.setUser}/>
+      <div>{props.children}</div>
     </div>
   )
 }

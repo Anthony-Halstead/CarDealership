@@ -1,83 +1,126 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import '../../css/pages/buy.css'
+import '../../css/pages/buy.css';
 import { useNavigate } from 'react-router-dom';
+
 function Buy(props) {
-
-  const [cars, setCars] = useState([])
-  const [selectedCar, setSelectedCar] = useState(null)
+  console.log("USER ID", props.user.id);
+  const [cars, setCars] = useState([]);
+  const [selectedCar, setSelectedCar] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAuction, setIsAuction] = useState(false);
   const navigate = useNavigate();
-
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
-    axios.get("http://localhost:8080/car/findCarsInInventory")
-      .then((response) => {
-        setCars(response.data)
-      })
-      .catch((e) => {
-        console.log(e)
-      })
-  }, [])
+    if (isAuction) {
+      axios
+        .get('http://localhost:8080/car/findAuctionCars')
+        .then((response) => {
+          setCars(response.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    } else {
+      axios
+        .get('http://localhost:8080/car/findRegCars')
+        .then((response) => {
+          setCars(response.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
+  }, [isAuction]);
 
-  const goToCheckout = (car) => {
-    navigate("/checkout",{ state: {car, user: props.user} });
-  }
+  const handleSearchChange = (event) => {
+    setSearch(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+  
+    axios
+      .get(`http://localhost:8080/car/findCarByModel/${search}`)
+      .then((response) => {
+        setCars(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const handleCarClick = (car) => {
     setSelectedCar(car);
     setIsModalOpen(true);
-  }
+  };
 
   const closeModal = () => {
     setIsModalOpen(false);
-  }
+  };
+
+  const goToCheckout = (car) => {
+    navigate('/checkout', { state: { car, user: props.user } });
+  };
+
   const showCars = () => {
-    return cars.map(
-      (car) => {
-        return (
-          <div className='car-card' key={car.id} onClick={() => handleCarClick(car)}>
-            <img src={car.carPhotos[0]} alt={car.model} />
-          </div>
-        )
-      }
-    )
-  }
+    return cars.map((car) => (
+      <div
+        className='car-box'
+        key={car.id}
+        onClick={() => handleCarClick(car)}
+      >
+        Click To View Details
+        <img src={car.carPhotos[0].photoUrl} alt={car.model} />
+      </div>
+    ));
+  };
 
   const showCarPhotos = (car) => {
     return (
-        <div className="image-grid">
-            {car.carPhotos.map((photo) => (
-                <img src={photo} alt={car.model} key={photo.id} />
-            ))}
-        </div>
+      <div>
+        {car.carPhotos.map((photo) => (
+          <img src={photo.photoUrl} alt={car.model} key={photo.id} />
+        ))}
+      </div>
     );
-};
+  };
 
   return (
     <div className='buy-content'>
+      <div>
+        <input
+          type='text'
+          value={search}
+          onChange={handleSearchChange}
+          placeholder='Search by model'
+        />
+        <button onClick={handleSearchSubmit}>Search</button>
+      </div>
+      <button className='button' onClick={() => setIsAuction(!isAuction)}>
+        {isAuction ? 'Show Regular Cars' : 'Show Auctionable Cars'}
+      </button>
       {showCars()}
-      {setIsModalOpen && selectedCar && (
+      {isModalOpen && selectedCar && (
         <div>
           <div>
             <button onClick={closeModal}>Close</button>
           </div>
           <div>
-            {/* All of the items below still need organized and css'd also add image grid css*/}
-            {selectedCar.description}
-            {selectedCar.make}
-            {selectedCar.model}
-            {selectedCar.year}
-            {selectedCar.miles}
-            {selectedCar.dateAdded}
-
-            {selectedCar.price}
-            <div>
+            <div>DESCRIPTION: {selectedCar.description}</div>
+            <div>MAKE: {selectedCar.make}</div>
+            <div>MODEL: {selectedCar.model}</div>
+            <div>YEAR: {selectedCar.year}</div>
+            <div>MILES: {selectedCar.miles}</div>
+            <div>DATE ADDED:{selectedCar.dateAdded}</div>
+            <div>PRICE: {selectedCar.price}</div>
+            <div className='car-box'>
               {showCarPhotos(selectedCar)}
             </div>
           </div>
           <div>
-           <button onClick={() => goToCheckout(selectedCar)}>Checkout</button>
+            <button onClick={() => goToCheckout(selectedCar)}>Checkout</button>
           </div>
         </div>
       )}
