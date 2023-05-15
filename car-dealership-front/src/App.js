@@ -8,6 +8,8 @@ import Admin from './components/pages/Admin';
 import PageWrapper from './components/reusables/PageWrapper';
 import { Route, Routes } from 'react-router-dom';
 import Checkout from './components/pages/Checkout';
+import axios from 'axios';
+import Auction from './components/pages/Auction';
 
 function App() {
   const [user, setUser] = useState({ id: undefined, userName: "", password: "", isAdmin: false});
@@ -16,9 +18,16 @@ function App() {
   useEffect(() => {
     const id = localStorage.getItem("userId");
     if (id) {
-      setUser({ ...user, id });
-    }
-  }, []);
+      axios.get(`http://localhost:8080/user/findUserById/${id}`)
+      .then((response)=>{
+        setUser(response.data)
+        console.log("response", response.data)
+      })
+      .catch((e)=>{
+        console.log(e)
+      })
+    }  
+  }, [])
 
   return (
     <PageWrapper
@@ -31,6 +40,7 @@ function App() {
         <Route path="/SignIn" element={<SignIn user={user} setUser={setUser} />} />
         <Route path="/SignUp" element={<SignUp user={user} setUser={setUser} />} />
         <Route path="/Checkout" element={<Checkout user={user} setUser={setUser} />} />
+        <Route path="/Auction" element={<Auction user={user} setUser={setUser} />} />
         <Route path="/Admin" element={<Admin />} />
       </Routes>
     </PageWrapper>

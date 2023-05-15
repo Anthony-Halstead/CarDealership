@@ -97,6 +97,7 @@ public class UserController {
     public ResponseEntity<Object> findUserById(@PathVariable Integer id) {
 
         try {
+            
             User foundUser = userService.findById(id);
             return new ResponseEntity<Object>(foundUser, HttpStatus.OK);
         } catch (Exception e) {

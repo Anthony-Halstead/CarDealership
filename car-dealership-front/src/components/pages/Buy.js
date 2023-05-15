@@ -63,6 +63,9 @@ function Buy(props) {
   const goToCheckout = (car) => {
     navigate('/checkout', { state: { car, user: props.user } });
   };
+  const goToAuction = (car) => {
+    navigate('/auction', { state: { car, user: props.user } });
+  };
 
   const showCars = () => {
     return cars.map((car) => (
@@ -102,7 +105,7 @@ function Buy(props) {
         {isAuction ? 'Show Regular Cars' : 'Show Auctionable Cars'}
       </button>
       {showCars()}
-      {isModalOpen && selectedCar && (
+      {isModalOpen && selectedCar && !isAuction &&(
         <div>
           <div>
             <button onClick={closeModal}>Close</button>
@@ -121,6 +124,28 @@ function Buy(props) {
           </div>
           <div>
             <button onClick={() => goToCheckout(selectedCar)}>Checkout</button>
+          </div>
+        </div>
+      )}
+      {isModalOpen && selectedCar && isAuction &&(
+        <div>
+          <div>
+            <button onClick={closeModal}>Close</button>
+          </div>
+          <div>
+            <div>DESCRIPTION: {selectedCar.description}</div>
+            <div>MAKE: {selectedCar.make}</div>
+            <div>MODEL: {selectedCar.model}</div>
+            <div>YEAR: {selectedCar.year}</div>
+            <div>MILES: {selectedCar.miles}</div>
+            <div>DATE ADDED:{selectedCar.dateAdded}</div>
+            <div>PRICE: {selectedCar.price}</div>
+            <div className='car-box'>
+              {showCarPhotos(selectedCar)}
+            </div>
+          </div>
+          <div>
+            <button onClick={() => goToAuction(selectedCar)}>Bid</button>
           </div>
         </div>
       )}
