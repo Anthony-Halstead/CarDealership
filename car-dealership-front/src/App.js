@@ -10,7 +10,7 @@ import { Route, Routes } from 'react-router-dom';
 import Checkout from './components/pages/Checkout';
 
 function App() {
-  const [user, setUser] = useState({ id: 0, userName: "", password: "", isAdmin: false});
+  const [user, setUser] = useState({ id: undefined, userName: "", password: "", isAdmin: false});
 
   
   useEffect(() => {
